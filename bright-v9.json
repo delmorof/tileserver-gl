@@ -39,7 +39,7 @@
             },
             "1444849345966.4436": {
                 "name": "Roads",
-                "collapsed": true
+                "collapsed": false
             },
             "1444849307123.581": {
                 "name": "Admin  lines",
@@ -53,10 +53,6 @@
                 "name": "Place labels",
                 "collapsed": true
             },
-            "1444849290021.1838": {
-                "name": "Road labels",
-                "collapsed": true
-            },
             "1444849334699.1902": {
                 "name": "Bridges",
                 "collapsed": true
@@ -67,6 +63,13 @@
             }
         }
     },
+    "center": [
+        11.271627317824539,
+        43.77057533661082
+    ],
+    "zoom": 15.755722126995186,
+    "bearing": 0,
+    "pitch": 0,
     "sources": {
         "mapbox": {
             "url": "mbtiles://{osm2vectortiles}",
@@ -901,6 +904,7 @@
                 "mapbox:group": "1444849354174.1904"
             },
             "source": "mapbox",
+			"minzoom": 13,
             "source-layer": "road",
             "interactive": true,
             "filter": [
@@ -1288,6 +1292,7 @@
                 "mapbox:group": "1444849345966.4436"
             },
             "source": "mapbox",
+			"minzoom": 13,
             "source-layer": "road",
             "interactive": true,
             "filter": [
@@ -1615,7 +1620,63 @@
             }
         },
         {
-            "id": "road_path_pedestrian",
+            "id": "road_pedestrian_casing",
+            "type": "line",
+            "metadata": {
+                "mapbox:group": "1444849345966.4436"
+            },
+            "source": "mapbox",
+            "source-layer": "road",
+			"minzoom": 13,
+            "interactive": true,
+            "filter": [
+                "all",
+                [
+                    "==",
+                    "$type",
+                    "LineString"
+                ],
+                [
+                    "all",
+                    [
+                        "!in",
+                        "structure",
+                        "bridge",
+                        "tunnel"
+                    ],
+                    [
+                        "==",
+                        "class",
+                        "pedestrian"
+                    ]
+                ]
+            ],
+            "layout": {
+                "line-join": "round"
+            },
+            "paint": {
+                "line-color": "hsl(36, 12%, 65%)",
+                "line-dasharray": [
+                    1,
+                    0
+                ],
+                "line-width": {
+                    "base": 1.5,
+                    "stops": [
+                        [
+                            14,
+                            0.88
+                        ],
+                        [
+                            18,
+                            12
+                        ]
+                    ]
+                }
+            }
+        },
+        {
+            "id": "road_path_footway",
             "type": "line",
             "metadata": {
                 "mapbox:group": "1444849345966.4436"
@@ -1639,10 +1700,14 @@
                         "tunnel"
                     ],
                     [
-                        "in",
+                        "==",
                         "class",
-                        "path",
-                        "pedestrian"
+                        "path"
+                    ],
+                    [
+                        "==",
+                        "type",
+                        "footway"
                     ]
                 ]
             ],
@@ -1662,6 +1727,63 @@
                         [
                             20,
                             4
+                        ]
+                    ]
+                }
+            }
+        },
+        {
+            "id": "road_pedestrian",
+            "type": "line",
+            "metadata": {
+                "mapbox:group": "1444849345966.4436"
+            },
+            "source": "mapbox",
+			"minzoom": 13,
+            "source-layer": "road",
+            "interactive": true,
+            "filter": [
+                "all",
+                [
+                    "==",
+                    "$type",
+                    "LineString"
+                ],
+                [
+                    "all",
+                    [
+                        "!in",
+                        "structure",
+                        "bridge",
+                        "tunnel"
+                    ],
+                    [
+                        "==",
+                        "class",
+                        "pedestrian"
+                    ]
+                ]
+            ],
+            "layout": {
+                "line-join": "round",
+                "line-cap": "round"
+            },
+            "paint": {
+                "line-color": "hsl(30, 86%, 93%)",
+                "line-dasharray": [
+                    1,
+                    0
+                ],
+                "line-width": {
+                    "base": 1.5,
+                    "stops": [
+                        [
+                            14,
+                            0.5
+                        ],
+                        [
+                            18,
+                            10
                         ]
                     ]
                 }
@@ -1785,7 +1907,12 @@
                         ]
                     ]
                 },
-                "line-opacity": 1
+                "line-opacity": 1,
+                "line-translate": [
+                    0,
+                    0
+                ],
+                "line-translate-anchor": "map"
             }
         },
         {
@@ -1946,6 +2073,60 @@
                         ]
                     ]
                 }
+            }
+        },
+        {
+            "id": "housenum-label",
+            "type": "symbol",
+            "metadata": {
+                "mapbox:group": "1444849345966.4436"
+            },
+            "source": "mapbox",
+            "source-layer": "housenum_label",
+            "minzoom": 17,
+            "interactive": true,
+            "layout": {
+                "visibility": "visible",
+                "text-field": {
+                    "base": 1,
+                    "stops": [
+                        [
+                            0,
+                            ""
+                        ],
+                        [
+                            17,
+                            "{house_num}"
+                        ],
+                        [
+                            22,
+                            "{house_num}"
+                        ]
+                    ]
+                },
+                "text-size": {
+                    "base": 1,
+                    "stops": [
+                        [
+                            17,
+                            8
+                        ],
+                        [
+                            18,
+                            10
+                        ],
+                        [
+                            20,
+                            12
+                        ]
+                    ]
+                },
+                "text-font": [
+                    "Open Sans Regular"
+                ]
+            },
+            "paint": {
+                "text-color": "hsl(30, 14%, 56%)"
             }
         },
         {
@@ -2912,10 +3093,9 @@
             ],
             "layout": {
                 "text-font": [
-                    "Open Sans Italic",
-                    "Arial Unicode MS Regular"
+                    "Open Sans Italic"
                 ],
-                "text-field": "{name_en}",
+                "text-field": "{name}",
                 "text-max-width": 5,
                 "text-size": 12
             },
@@ -2949,26 +3129,35 @@
                 ]
             ],
             "layout": {
+				"symbol-avoid-edges": true,
+                "text-size": 12,
+                "text-allow-overlap": false,
                 "icon-image": "{maki}-11",
+                "symbol-avoid-edges": true,
+                "text-ignore-placement": false,
+                "symbol-spacing": 30,
                 "text-font": [
-                    "Open Sans Semibold",
-                    "Arial Unicode MS Bold"
+                    "Open Sans Semibold"
                 ],
-                "text-field": "{name_en}",
-                "text-max-width": 9,
-                "text-padding": 2,
+                "icon-allow-overlap": false,
+                "symbol-placement": "point",
+                "text-padding": 20,
                 "text-offset": [
                     0,
-                    0.6
+                    0.65
                 ],
+                "icon-optional": false,
                 "text-anchor": "top",
-                "text-size": 12
+                "text-field": "{name}",
+                "icon-padding": 2,
+                "text-max-width": 9,
+                "icon-ignore-placement": false
             },
             "paint": {
                 "text-color": "#666",
                 "text-halo-color": "#ffffff",
-                "text-halo-width": 1,
-                "text-halo-blur": 0.5
+                "text-halo-blur": 0.5,
+                "text-halo-width": 0.5
             }
         },
         {
@@ -2995,12 +3184,12 @@
                 ]
             ],
             "layout": {
+				"symbol-avoid-edges": true,
                 "icon-image": "{maki}-11",
                 "text-font": [
-                    "Open Sans Semibold",
-                    "Arial Unicode MS Bold"
+                    "Open Sans Semibold"
                 ],
-                "text-field": "{name_en}",
+                "text-field": "{name}",
                 "text-max-width": 9,
                 "text-padding": 2,
                 "text-offset": [
@@ -3041,12 +3230,12 @@
                 ]
             ],
             "layout": {
+				"symbol-avoid-edges": true,
                 "icon-image": "{maki}-11",
                 "text-font": [
-                    "Open Sans Semibold",
-                    "Arial Unicode MS Bold"
+                    "Open Sans Semibold"
                 ],
-                "text-field": "{name_en}",
+                "text-field": "{name}",
                 "text-max-width": 9,
                 "text-padding": 2,
                 "text-offset": [
@@ -3073,11 +3262,11 @@
             "source-layer": "rail_station_label",
             "interactive": true,
             "layout": {
+				"symbol-avoid-edges": true,
                 "text-size": 12,
                 "icon-image": "{maki}-11",
                 "text-font": [
-                    "Open Sans Semibold",
-                    "Arial Unicode MS Bold"
+                    "Open Sans Semibold"
                 ],
                 "text-padding": 2,
                 "visibility": "visible",
@@ -3086,7 +3275,7 @@
                     0.6
                 ],
                 "text-anchor": "top",
-                "text-field": "{name_en}",
+                "text-field": "{name}",
                 "text-max-width": 9
             },
             "paint": {
@@ -3120,12 +3309,12 @@
                 ]
             ],
             "layout": {
+				"symbol-avoid-edges": true,
                 "icon-image": "{maki}-11",
                 "text-font": [
-                    "Open Sans Semibold",
-                    "Arial Unicode MS Bold"
+                    "Open Sans Semibold"
                 ],
-                "text-field": "{name_en}",
+                "text-field": "{name}",
                 "text-max-width": 9,
                 "text-padding": 2,
                 "text-offset": [
@@ -3170,10 +3359,9 @@
             "layout": {
                 "icon-image": "{maki}-11",
                 "text-font": [
-                    "Open Sans Semibold",
-                    "Arial Unicode MS Bold"
+                    "Open Sans Semibold"
                 ],
-                "text-field": "{name_en}",
+                "text-field": "{name}",
                 "text-max-width": 9,
                 "text-padding": 2,
                 "text-offset": [
@@ -3186,47 +3374,6 @@
             "paint": {
                 "text-color": "#666",
                 "text-halo-color": "#ffffff",
-                "text-halo-width": 1,
-                "text-halo-blur": 0.5
-            }
-        },
-        {
-            "id": "road_label",
-            "type": "symbol",
-            "metadata": {
-                "mapbox:group": "1456163609504.0715"
-            },
-            "source": "mapbox",
-            "source-layer": "road_label",
-            "interactive": true,
-            "filter": [
-                "!=",
-                "class",
-                "ferry"
-            ],
-            "layout": {
-                "text-field": "{name_en}",
-                "text-font": [
-                    "Open Sans Regular",
-                    "Arial Unicode MS Regular"
-                ],
-                "text-size": {
-                    "base": 1,
-                    "stops": [
-                        [
-                            13,
-                            12
-                        ],
-                        [
-                            14,
-                            13
-                        ]
-                    ]
-                },
-                "symbol-placement": "line"
-            },
-            "paint": {
-                "text-color": "#765",
                 "text-halo-width": 1,
                 "text-halo-blur": 0.5
             }
@@ -3247,10 +3394,10 @@
                 6
             ],
             "layout": {
+				"symbol-avoid-edges": true,
                 "text-field": "{ref}",
                 "text-font": [
-                    "Open Sans Semibold",
-                    "Arial Unicode MS Bold"
+                    "Open Sans Semibold"
                 ],
                 "text-size": 11,
                 "icon-image": "motorway_{reflen}",
@@ -3274,6 +3421,59 @@
             "paint": {}
         },
         {
+            "id": "road_label",
+            "type": "symbol",
+            "metadata": {
+                "mapbox:group": "1456163609504.0715"
+            },
+            "source": "mapbox",
+            "source-layer": "road_label",
+            "interactive": true,
+            "filter": [
+                "!=",
+                "class",
+                "ferry"
+            ],
+            "layout": {
+                "text-field": "{name}",
+                "text-font": [
+                    "Open Sans Regular"
+                ],
+                "text-size": {
+                    "base": 1,
+                    "stops": [
+                        [
+                            13,
+                            12
+                        ],
+                        [
+                            14,
+                            13
+                        ]
+                    ]
+                },
+                "symbol-placement": "line",
+                "symbol-spacing": {
+                    "base": 1,
+                    "stops": [
+                        [
+                            0,
+                            300
+                        ],
+                        [
+                            22,
+                            300
+                        ]
+                    ]
+                }
+            },
+            "paint": {
+                "text-color": "#765",
+                "text-halo-width": 1,
+                "text-halo-blur": 0.5
+            }
+        },
+        {
             "id": "place_label_other",
             "type": "symbol",
             "metadata": {
@@ -3292,13 +3492,13 @@
                 "suburb"
             ],
             "layout": {
+				"symbol-avoid-edges": true,
                 "text-font": [
-                    "Open Sans Bold",
-                    "Arial Unicode MS Bold"
+                    "Open Sans Bold"
                 ],
                 "text-transform": "uppercase",
                 "text-letter-spacing": 0.1,
-                "text-field": "{name_en}",
+                "text-field": "{name}",
                 "text-max-width": 9,
                 "text-size": {
                     "base": 1.2,
@@ -3335,11 +3535,11 @@
                 "village"
             ],
             "layout": {
+				"symbol-avoid-edges": true,
                 "text-font": [
-                    "Open Sans Regular",
-                    "Arial Unicode MS Regular"
+                    "Open Sans Regular"
                 ],
-                "text-field": "{name_en}",
+                "text-field": "{name}",
                 "text-max-width": 8,
                 "text-size": {
                     "base": 1.2,
@@ -3376,11 +3576,11 @@
                 "town"
             ],
             "layout": {
+				"symbol-avoid-edges": true,
                 "text-font": [
-                    "Open Sans Regular",
-                    "Arial Unicode MS Regular"
+                    "Open Sans Regular"
                 ],
-                "text-field": "{name_en}",
+                "text-field": "{name}",
                 "text-max-width": 8,
                 "text-size": {
                     "base": 1.2,
@@ -3418,10 +3618,9 @@
             ],
             "layout": {
                 "text-font": [
-                    "Open Sans Semibold",
-                    "Arial Unicode MS Bold"
+                    "Open Sans Semibold"
                 ],
-                "text-field": "{name_en}",
+                "text-field": "{name}",
                 "text-max-width": 8,
                 "text-size": {
                     "base": 1.2,
@@ -3467,10 +3666,9 @@
             ],
             "layout": {
                 "text-font": [
-                    "Open Sans Italic",
-                    "Arial Unicode MS Regular"
+                    "Open Sans Italic"
                 ],
-                "text-field": "{name_en}",
+                "text-field": "{name}",
                 "text-letter-spacing": 0.2,
                 "symbol-placement": "line",
                 "text-size": {
@@ -3517,10 +3715,9 @@
             ],
             "layout": {
                 "text-font": [
-                    "Open Sans Italic",
-                    "Arial Unicode MS Regular"
+                    "Open Sans Italic"
                 ],
-                "text-field": "{name_en}",
+                "text-field": "{name}",
                 "text-max-width": 6,
                 "text-letter-spacing": 0.2,
                 "symbol-placement": "point",
@@ -3568,10 +3765,9 @@
             ],
             "layout": {
                 "text-font": [
-                    "Open Sans Italic",
-                    "Arial Unicode MS Regular"
+                    "Open Sans Italic"
                 ],
-                "text-field": "{name_en}",
+                "text-field": "{name}",
                 "text-letter-spacing": 0.2,
                 "symbol-placement": "line",
                 "text-size": {
@@ -3618,10 +3814,9 @@
             ],
             "layout": {
                 "text-font": [
-                    "Open Sans Italic",
-                    "Arial Unicode MS Regular"
+                    "Open Sans Italic"
                 ],
-                "text-field": "{name_en}",
+                "text-field": "{name}",
                 "text-max-width": 5,
                 "text-letter-spacing": 0.2,
                 "symbol-placement": "point",
@@ -3669,10 +3864,9 @@
             ],
             "layout": {
                 "text-font": [
-                    "Open Sans Italic",
-                    "Arial Unicode MS Regular"
+                    "Open Sans Italic"
                 ],
-                "text-field": "{name_en}",
+                "text-field": "{name}",
                 "text-letter-spacing": 0.2,
                 "symbol-placement": "line",
                 "text-size": {
@@ -3719,10 +3913,9 @@
             ],
             "layout": {
                 "text-font": [
-                    "Open Sans Italic",
-                    "Arial Unicode MS Regular"
+                    "Open Sans Italic"
                 ],
-                "text-field": "{name_en}",
+                "text-field": "{name}",
                 "text-max-width": 5,
                 "text-letter-spacing": 0.2,
                 "symbol-placement": "point",
@@ -3770,10 +3963,9 @@
             ],
             "layout": {
                 "text-font": [
-                    "Open Sans Italic",
-                    "Arial Unicode MS Regular"
+                    "Open Sans Italic"
                 ],
-                "text-field": "{name_en}",
+                "text-field": "{name}",
                 "text-letter-spacing": 0.2,
                 "symbol-placement": "line",
                 "text-size": {
@@ -3820,10 +4012,9 @@
             ],
             "layout": {
                 "text-font": [
-                    "Open Sans Italic",
-                    "Arial Unicode MS Regular"
+                    "Open Sans Italic"
                 ],
-                "text-field": "{name_en}",
+                "text-field": "{name}",
                 "text-max-width": 5,
                 "text-letter-spacing": 0.2,
                 "text-line-height": 1.6,
@@ -3868,10 +4059,9 @@
             ],
             "layout": {
                 "text-font": [
-                    "Open Sans Bold",
-                    "Arial Unicode MS Bold"
+                    "Open Sans Bold"
                 ],
-                "text-field": "{name_en}",
+                "text-field": "{name}",
                 "text-max-width": 6.25,
                 "text-transform": "uppercase",
                 "text-size": {
@@ -3910,10 +4100,9 @@
             ],
             "layout": {
                 "text-font": [
-                    "Open Sans Bold",
-                    "Arial Unicode MS Bold"
+                    "Open Sans Bold"
                 ],
-                "text-field": "{name_en}",
+                "text-field": "{name}",
                 "text-max-width": 6.25,
                 "text-transform": "uppercase",
                 "text-size": {
@@ -3952,10 +4141,9 @@
             ],
             "layout": {
                 "text-font": [
-                    "Open Sans Bold",
-                    "Arial Unicode MS Bold"
+                    "Open Sans Bold"
                 ],
-                "text-field": "{name_en}",
+                "text-field": "{name}",
                 "text-max-width": 6.25,
                 "text-transform": "uppercase",
                 "text-size": {
@@ -3994,10 +4182,9 @@
             ],
             "layout": {
                 "text-font": [
-                    "Open Sans Bold",
-                    "Arial Unicode MS Bold"
+                    "Open Sans Bold"
                 ],
-                "text-field": "{name_en}",
+                "text-field": "{name}",
                 "text-max-width": 6.25,
                 "text-transform": "uppercase",
                 "text-size": {
@@ -4023,7 +4210,7 @@
     ],
     "created": "2016-09-05T20:17:50.731Z",
     "id": "cisqhodq600242xld23aumtqf",
-    "modified": "2016-09-05T20:17:50.731Z",
+    "modified": "2016-09-06T10:54:36.186Z",
     "owner": "delmoro",
     "draft": false
 }
