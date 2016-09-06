@@ -34,7 +34,7 @@ Alternatively, you can use the `tileserver-gl-light` package instead, which is p
 An alternative to npm to start the packed software easier is to install [Docker](http://www.docker.com/) on your computer and then run in the directory with the downloaded MBTiles the command:
 
 ```bash
-docker run -it -v $(pwd):/data -p 8080:80 klokantech/tileserver-gl
+docker run -it -v $(pwd):/data -e INPUT="zurich_switzerland.mbtiles" -e CONFIG="" -p 80:80 klokantech/tileserver-gl
 ```
 
 This will download and start a ready to use container on your computer and the maps are going to be available in webbrowser on localhost:8080.
