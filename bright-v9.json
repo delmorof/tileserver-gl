@@ -69,12 +69,12 @@
     },
     "sources": {
         "mapbox": {
-            "url": "mapbox://mapbox.mapbox-streets-v7",
+            "url": "mbtiles://{osm2vectortiles}",
             "type": "vector"
         }
     },
-    "sprite": "mapbox://sprites/delmoro/cisqhodq600242xld23aumtqf",
-    "glyphs": "mapbox://fonts/mapbox/{fontstack}/{range}.pbf",
+    "sprite": "sprites/bright-v9",
+    "glyphs": "glyphs/{fontstack}/{range}.pbf",
     "layers": [
         {
             "id": "background",
