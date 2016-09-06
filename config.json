@@ -33,7 +33,7 @@
     }
   },
   "bright-custom-v9": {
-      "style": "/data/bright-custom-v9.json",
+      "style": "/usr/src/app/data/bright-custom-v9.json",
       "tilejson": {
         "bounds": [
           -180,
