@@ -4,36 +4,13 @@
       "root": "/usr/src/app/node_modules/tileserver-gl-styles",
       "fonts": "glyphs",
       "sprites": "sprites",
-      "styles": "styles",
+      "styles": "/data",
       "mbtiles": "/data"
     }
   },
   "styles": {
-    "basic-v9": {
-      "style": "basic-v9.json",
-      "tilejson": {
-        "bounds": [
-          -180,
-          -85.05112877980659,
-          180,
-          85.0511287798066
-        ]
-      }
-    },
-    "bright-v9": {
+    "bright--v9": {
       "style": "bright-v9.json",
-      "tilejson": {
-        "bounds": [
-          -180,
-          -85.05112877980659,
-          180,
-          85.0511287798066
-        ]
-      }
-    }
-  },
-  "bright-custom-v9": {
-      "style": "/usr/src/app/data/bright-custom-v9.json",
       "tilejson": {
         "bounds": [
           -180,
@@ -50,3 +27,4 @@
     }
   }
 }
+
